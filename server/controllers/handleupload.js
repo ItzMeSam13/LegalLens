@@ -20,7 +20,7 @@ export const handleupload = async (req, res) => {
 				filename: originalname,
 				source: "txt",
 				extractedText: text,
-				summary,
+				summary: summary,
 			});
 		}
 
@@ -30,7 +30,6 @@ export const handleupload = async (req, res) => {
 
 		if (mimetype === "application/pdf") {
 			const text = await extractTextFromBuffer(buffer);
-			
 
 			if (text.length > 50) {
 				const summary = await summarizeText(text);
@@ -39,7 +38,7 @@ export const handleupload = async (req, res) => {
 					filename: originalname,
 					source: "pdfjs",
 					extractedText: text,
-					summary,
+					summary: summary,
 				});
 			} else {
 				return runOCR(req, res);

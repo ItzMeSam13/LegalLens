@@ -24,7 +24,7 @@ export const runOCR = async (req, res) => {
 			success: true,
 			filename: req.file.originalname,
 			extractedText: text,
-			summary,
+			summary: summary,
 		});
 	} catch (err) {
 		console.error("OCR error:", err);
