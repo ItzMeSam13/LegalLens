@@ -17,6 +17,7 @@ Summarize this legal document clearly in bullet points:
 - Any important dates
 - Final outcome
 - Plain English explanation
+- also simple Hindi explaination
 
 Only include sections if applicable. Don't repeat. Here's the text:\n\n${text}`;
 
