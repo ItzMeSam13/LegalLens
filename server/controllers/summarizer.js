@@ -1,5 +1,5 @@
 import { CohereClient } from "cohere-ai";
-import { translateToHindi } from "./translateToHindi.js"; 
+import { translateToHindi } from "./translate.js"; 
 
 const cohere = new CohereClient({
 	token: process.env.COHERE_API_KEY,
@@ -7,20 +7,29 @@ const cohere = new CohereClient({
 
 export const summarizeText = async (text) => {
 	try {
-		const prompt = `You are a legal assistant AI for a legal-tech app called "LegalLens". 
+		const prompt = `You are a legal assistant AI working for a legal-tech app called "LegalLens".
 
-Summarize this legal document clearly in bullet points:
-- Type of Document
-- Key Purpose
-- Parties Involved
-- Important Clauses
-- Rights & Responsibilities
-- Any important dates
-- Final outcome
-- Plain English explanation
-- also simple Hindi explaination
+Your task is to analyze and summarize legal documents for common users in a clear, concise, and structured manner.
 
-Only include sections if applicable. Don't repeat. Here's the text:\n\n${text}`;
+Please follow this format:
+
+1. Begin with a *short plain-English summary* (2-3 sentences) describing what the document is about in simple language.
+2. Then, provide key details as *bullet points*, with each point starting with a clear, bolded heading followed by the explanation. Use formatting like:
+   - *Type of Document*: [Document Type]
+   - *Key Purpose*: [Purpose]
+   - *Parties Involved*: [Party A, Party B, etc.]
+   - *Important Clauses*: [Clause 1, Clause 2...]
+   - *Rights & Responsibilities*: [Summary of obligations and rights]
+   - *Important Dates*: [Mention key dates like start, end, signing]
+   - *Final Outcome*: [Mention any conclusion or result of the document]
+   - *Plain English Explanation*: [Explain the meaning in very simple English for a layperson]
+   - *Simple Hindi Explanation*: [Translate above explanation in easy Hindi for common users]
+
+Avoid repetition, and include only the applicable sections. Maintain legal accuracy but make it easy to understand.
+
+Here is the document text:
+
+[Insert Document Text Here]:\n\n${text}`;
 
 		const response = await cohere.generate({
 			model: "command",
