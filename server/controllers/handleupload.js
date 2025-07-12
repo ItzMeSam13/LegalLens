@@ -14,13 +14,14 @@ export const handleupload = async (req, res) => {
 	try {
 		if (mimetype === "text/plain") {
 			const text = buffer.toString("utf-8");
-			const summary = await summarizeText(text);
+			const {summary,hindi} = await summarizeText(text);
 			return res.status(200).json({
 				success: true,
 				filename: originalname,
 				source: "txt",
 				extractedText: text,
 				summary: summary,
+				hindi: hindi,
 			});
 		}
 
@@ -32,13 +33,14 @@ export const handleupload = async (req, res) => {
 			const text = await extractTextFromBuffer(buffer);
 
 			if (text.length > 50) {
-				const summary = await summarizeText(text);
+				const {summary,hindi} = await summarizeText(text);
 				return res.status(200).json({
 					success: true,
 					filename: originalname,
 					source: "pdfjs",
 					extractedText: text,
 					summary: summary,
+					hindi: hindi,
 				});
 			} else {
 				return runOCR(req, res);
